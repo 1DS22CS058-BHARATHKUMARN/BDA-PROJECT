@@ -59,6 +59,29 @@ sk_model.fit(X, y)
 joblib.dump(sk_model, "heart_model.pkl")
 print("✅ Joblib model saved locally as heart_model.pkl")
 
+
+# ✅ Extra: Print evaluation metrics
+# ==============================
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report
+
+# Predict on same data (for demonstration)
+y_pred = sk_model.predict(X)
+
+print("\n📊 Evaluation Metrics:")
+print(f"Accuracy:  {accuracy_score(y, y_pred) * 100:.2f}%")
+print(f"Precision: {precision_score(y, y_pred, average='weighted') * 100:.2f}%")
+print(f"Recall:    {recall_score(y, y_pred, average='weighted') * 100:.2f}%")
+print(f"F1 Score:  {f1_score(y, y_pred, average='weighted') * 100:.2f}%")
+
+# Confusion matrix
+cm = confusion_matrix(y, y_pred)
+print("\n🧾 Confusion Matrix:")
+print(cm)
+
+# Detailed classification report
+print("\n📄 Classification Report:")
+print(classification_report(y, y_pred))
+
 # Stop Spark
 spark.stop()
 print(f"✅ Model Accuracy: {accuracy * 100:.2f}%")
